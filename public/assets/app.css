@@ -1,0 +1,299 @@
+/* ===== Brand & Navbar ===== */
+:root{
+  --brand-orange: #fd7e14;        /* dasar */
+  --brand-orange-dark: #e86b00;   /* hover/aktif */
+  --nav-h: 56px;                  /* tinggi navbar bootstrap kira-kira */
+}
+html, body{ margin:0 !important; padding:0 !important; }
+
+.bg-orange{ background-color: var(--brand-orange) !important; }
+.navbar-dark.bg-orange .navbar-brand,
+.navbar-dark.bg-orange .navbar-nav .nav-link{
+  color: rgba(255,255,255,.92) !important;
+}
+.navbar-dark.bg-orange .navbar-nav .nav-link:hover,
+.navbar-dark.bg-orange .navbar-nav .nav-link:focus,
+.navbar-dark.bg-orange .navbar-nav .nav-link.active{
+  color: #fff !important;
+}
+
+/* Navbar utama smooth */
+#mainNav{
+  will-change: transform;
+  transition: transform .42s cubic-bezier(.22,1,.36,1);
+}
+.nav-collapsed #mainNav{ transform: translateY(-100%); }
+
+/* ===== Sub-navbar lengket (judul+cari+chip) ===== */
+.sticky-subnav{
+  position: sticky;
+  top: var(--nav-h);             /* default: menempel di bawah navbar utama */
+  z-index: 1050;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  transition: top .42s cubic-bezier(.22,1,.36,1), box-shadow .2s ease;
+}
+.sticky-subnav.is-stuck{ box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+/* Ketika navbar utama disembunyikan, subnav pindah ke top:0 */
+.nav-collapsed .sticky-subnav{ top: 0; }
+#subnav-sentinel{ height: 1px; }
+
+/* ===== Tombol Back-to-Top (oranye, kecil) ===== */
+#backToTop{
+  position: fixed !important;
+  right: 24px !important;
+  bottom: calc(var(--bt-offset, 24px) + 20px) !important; /* selalu di atas footer */
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e86b00;
+  background: #fd7e14;
+  color: #fff !important;
+  text-decoration: none !important;
+  display: grid !important;
+  place-items: center;
+  font-size: 18px; line-height: 1;
+  z-index: 9999 !important;
+
+  opacity: 0; visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s ease,
+              background-color .15s ease, border-color .15s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+#backToTop.show{
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+#backToTop:hover, #backToTop:focus{
+  background: #e86b00; border-color: #e86b00; outline: none;
+}
+
+/* Hormati preferensi “reduce motion” */
+@media (prefers-reduced-motion: reduce){
+  #mainNav, .sticky-subnav{ transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* Warna default link (putih) di navbar oranye */
+.navbar-dark.bg-orange .navbar-nav .nav-link{
+  color: #fff !important;
+  transition: color .15s ease;
+}
+
+/* Hover/focus -> hitam */
+.navbar-dark.bg-orange .navbar-nav .nav-link:hover,
+.navbar-dark.bg-orange .navbar-nav .nav-link:focus{
+  color: #000 !important;
+}
+
+/* (Opsional) aktif -> hitam & sedikit tebal */
+.navbar-dark.bg-orange .navbar-nav .nav-link.active{
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* (Opsional) brand hover -> hitam */
+.navbar-dark.bg-orange .navbar-brand:hover,
+.navbar-dark.bg-orange .navbar-brand:focus{
+  color: #000 !important;
+}
+
+/* ===== Tombol Kategori: idle putih, hover oranye ===== */
+/* Default (idle) */
+.btn.cat-btn{
+  background:#fff;
+  color:#212529;
+  border-color: rgba(0,0,0,.25);
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+/* Hover/focus -> oranye */
+.btn.cat-btn:hover,
+.btn.cat-btn:focus{
+  background:#fd7e14 !important;
+  border-color:#fd7e14 !important;
+  color:#fff !important;
+}
+/* Saat ditekan (active state sesaat) -> oranye lebih gelap */
+.btn.cat-btn:active{
+  background:#e86b00 !important;
+  border-color:#e86b00 !important;
+  color:#fff !important;
+}
+/* Netralisir class .active jika ada (jangan permanen oranye) */
+.btn.cat-btn.active{
+  background:#fff !important;
+  color:#212529 !important;
+  border-color: rgba(0,0,0,.25) !important;
+  box-shadow:none !important;
+}
+
+/* ===== THEME VARIABLES ===== */
+:root{
+  --bg: #ffffff;
+  --text: #212529;
+  --muted: #6c757d;
+  --card-bg: #ffffff;
+  --card-border: #dee2e6;
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --footer-bg: #212529;
+  --footer-text: #ffffff;
+  color-scheme: light;
+}
+html[data-theme="dark"]{
+  --bg: #0f1115;
+  --text: #e6e6e6;
+  --muted: #9aa1a9;
+  --card-bg: #171a1f;
+  --card-border: #2a2f36;
+  --input-bg: #0f1115;
+  --input-border: #3a4048;
+  --footer-bg: #0b0d10;
+  --footer-text: #cfd3da;
+  color-scheme: dark;
+}
+
+/* Apply ke elemen utama */
+body{ background: var(--bg); color: var(--text); }
+.text-muted{ color: var(--muted) !important; }
+.card{ background-color: var(--card-bg); border-color: var(--card-border); }
+.sticky-subnav{ background: var(--bg); border-bottom-color: var(--card-border); }
+hr{ color: var(--card-border); border-color: var(--card-border); }
+footer.bg-dark{ background-color: var(--footer-bg) !important; color: var(--footer-text) !important; }
+
+/* Form controls */
+.form-control, .form-select{
+  background-color: var(--input-bg);
+  color: var(--text);
+  border-color: var(--input-border);
+}
+.form-control::placeholder{ color: var(--muted); }
+
+/* Outline buttons agar kontras di dark */
+html[data-theme="dark"] .btn-outline-secondary{
+  color: var(--text);
+  border-color: var(--input-border);
+}
+
+/* Kategori (idle putih, hover oranye) – tetap jalan di dark */
+html[data-theme="dark"] .btn.cat-btn{
+  background: transparent;
+  color: var(--text);
+  border-color: var(--input-border) !important;
+}
+
+/* ===== THEME VARIABLES ===== */
+:root{
+  --bg:#ffffff; --text:#212529; --muted:#6c757d;
+  --card-bg:#ffffff; --card-border:#dee2e6;
+  --input-bg:#ffffff; --input-border:#ced4da;
+  --footer-bg:#212529; --footer-text:#ffffff;
+  color-scheme: light;
+}
+html[data-theme="dark"]{
+  --bg:#0f1115; --text:#e6e6e6; --muted:#9aa1a9;
+  --card-bg:#171a1f; --card-border:#2a2f36;
+  --input-bg:#0f1115; --input-border:#3a4048;
+  --footer-bg:#0b0d10; --footer-text:#cfd3da;
+  color-scheme: dark;
+}
+
+/* Terapkan variabel ke elemen kunci (pakai !important agar menang atas CSS lama) */
+body{ background:var(--bg) !important; color:var(--text) !important; }
+.text-muted{ color:var(--muted) !important; }
+.card{ background-color:var(--card-bg) !important; border-color:var(--card-border) !important; }
+.sticky-subnav{ background:var(--bg) !important; border-bottom-color:var(--card-border) !important; }
+hr{ color:var(--card-border) !important; border-color:var(--card-border) !important; }
+footer.bg-dark{ background-color:var(--footer-bg) !important; color:var(--footer-text) !important; }
+
+/* Form */
+.form-control,.form-select{
+  background-color:var(--input-bg) !important;
+  color:var(--text) !important;
+  border-color:var(--input-border) !important;
+}
+.form-control::placeholder{ color:var(--muted) !important; }
+
+/* Outline buttons agar kontras di dark */
+html[data-theme="dark"] .btn-outline-secondary{
+  color:var(--text); border-color:var(--input-border);
+}
+
+/* Kategori (idle putih, hover oranye) tetap berjalan di dark */
+html[data-theme="dark"] .btn.cat-btn{
+  background:transparent;
+  color:var(--text);
+  border-color:var(--input-border) !important;
+}
+
+/* ===== Perbaikan kontras teks di DARK MODE ===== */
+
+/* Override variabel global Bootstrap ketika dark */
+html[data-theme="dark"]{
+  --bs-body-color: var(--text);
+  --bs-body-bg: var(--bg);
+  --bs-heading-color: var(--text);
+  --bs-border-color: var(--card-border);
+}
+
+/* Kartu Bootstrap: paksa warna & border di dark */
+html[data-theme="dark"] .card{
+  --bs-card-bg: var(--card-bg);
+  --bs-card-border-color: var(--card-border);
+  --bs-card-color: var(--text);
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text) !important;
+}
+
+/* Judul, isi, dan teks kecil di dalam card */
+html[data-theme="dark"] .card .card-title,
+html[data-theme="dark"] .card .card-text,
+html[data-theme="dark"] .card p,
+html[data-theme="dark"] .card small,
+html[data-theme="dark"] .card strong{
+  color: var(--text) !important;
+}
+
+/* Footer card sedikit dimuted, tetap terbaca */
+html[data-theme="dark"] .card .card-footer{
+  background: var(--card-bg) !important;
+  color: var(--muted) !important;
+  border-top-color: var(--card-border) !important;
+}
+
+/* Subnavbar dan garis pemisah mengikuti tema */
+html[data-theme="dark"] .sticky-subnav{
+  background: var(--bg) !important;
+  border-bottom-color: var(--card-border) !important;
+}
+html[data-theme="dark"] hr{
+  color: var(--card-border) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Matikan SEMUA style Bootstrap pada tombol tema, apapun kelasnya */
+#themeToggle,
+#themeToggle.btn,
+#themeToggle.btn-outline-light,
+.navbar #themeToggle {
+  all: unset;                              /* reset total */
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+  font-size: 18px;                         /* ukuran 🌙/☀️ */
+  cursor: pointer;
+  border-radius: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#themeToggle:hover,
+#themeToggle:focus,
+#themeToggle:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-color: transparent !important;
+}
